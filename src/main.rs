@@ -58,7 +58,7 @@ fn recursive_gather_dirs(dir_path: &Path) -> Vec<PathBuf> {
 }
 
 fn rename_xml(dirs: Vec<PathBuf>, prefix_length: Option<usize>, append_dir: bool, verbose: bool) {
-    let prefix = prefix_length.unwrap_or(32) as usize;
+    let prefix = prefix_length.unwrap_or(32);
 
     for dir in dirs {
         let mut d = dir.to_string_lossy().to_string();
@@ -92,20 +92,14 @@ fn rename_xml(dirs: Vec<PathBuf>, prefix_length: Option<usize>, append_dir: bool
 
 fn main() {
     let args = Args::parse();
-    let dirs: Vec<PathBuf>;
-    let append_dir: bool;
 
-    if args.recursive {
-        dirs = recursive_gather_dirs(&args.directory);
+    let dirs = if args.recursive {
+        recursive_gather_dirs(&args.directory)
     } else {
-        dirs = vec![args.directory];
-    }
+        vec![args.directory]
+    };
 
-    if args.no_append {
-        append_dir = false;
-    } else {
-        append_dir = true;
-    }
+    let append_dir = !args.no_append;
 
     rename_xml(dirs, args.prefix_length, append_dir, args.verbose)
 }
