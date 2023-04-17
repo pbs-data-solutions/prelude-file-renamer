@@ -58,7 +58,7 @@ fn recursive_gather_dirs(dir_path: &Path) -> Vec<PathBuf> {
 }
 
 fn rename_xml(dirs: Vec<PathBuf>, prefix_length: Option<usize>, append_dir: bool, verbose: bool) {
-    let prefix = prefix_length.unwrap_or(32) as usize;
+    let prefix = prefix_length.unwrap_or(32);
 
     for dir in dirs {
         let mut d = dir.to_string_lossy().to_string();
@@ -92,20 +92,14 @@ fn rename_xml(dirs: Vec<PathBuf>, prefix_length: Option<usize>, append_dir: bool
 
 fn main() {
     let args = Args::parse();
-    let dirs: Vec<PathBuf>;
-    let append_dir: bool;
 
-    if args.recursive {
-        dirs = recursive_gather_dirs(&args.directory);
+    let dirs = if args.recursive {
+        recursive_gather_dirs(&args.directory)
     } else {
-        dirs = vec![args.directory];
-    }
+        vec![args.directory]
+    };
 
-    if args.no_append {
-        append_dir = false;
-    } else {
-        append_dir = true;
-    }
+    let append_dir = !args.no_append;
 
     rename_xml(dirs, args.prefix_length, append_dir, args.verbose)
 }
@@ -123,16 +117,12 @@ mod tests {
         let from_file = &tmp_dir.path().join(&file_name);
         let to_file = &tmp_dir.path().join("test_1.xml");
 
-        fs::copy(
-            &root.join("tests/assets/sites/").join(&file_name),
-            &from_file.to_path_buf(),
-        )
-        .unwrap();
+        fs::copy(root.join("tests/assets/sites/").join(file_name), from_file).unwrap();
 
-        renamer(&from_file, &to_file, &false);
+        renamer(from_file, to_file, &false);
 
-        assert_eq!(from_file.is_file(), false);
-        assert_eq!(to_file.is_file(), true);
+        assert!(!from_file.is_file());
+        assert!(to_file.is_file());
     }
 
     #[test]
@@ -143,16 +133,12 @@ mod tests {
         let from_file = &tmp_dir.path().join(&file_name);
         let to_file = &tmp_dir.path().join("test_1.xml");
 
-        fs::copy(
-            &root.join("tests/assets/sites/").join(&file_name),
-            &from_file.to_path_buf(),
-        )
-        .unwrap();
+        fs::copy(root.join("tests/assets/sites/").join(file_name), from_file).unwrap();
 
-        renamer(&from_file, &to_file, &true);
+        renamer(from_file, to_file, &true);
 
-        assert_eq!(from_file.is_file(), false);
-        assert_eq!(to_file.is_file(), true);
+        assert!(!from_file.is_file());
+        assert!(to_file.is_file());
     }
 
     #[test]
@@ -176,16 +162,12 @@ mod tests {
         let from_file = &site_dir.join(&file_name);
         let to_file = &site_dir.join("sites_test_1.xml");
 
-        fs::create_dir(&site_dir).unwrap();
-        fs::copy(
-            &root.join("tests/assets/sites/").join(&file_name),
-            &from_file.to_path_buf(),
-        )
-        .unwrap();
+        fs::create_dir(site_dir).unwrap();
+        fs::copy(root.join("tests/assets/sites/").join(&file_name), from_file).unwrap();
 
         rename_xml(vec![site_dir.to_path_buf()], None, true, false);
 
-        assert_eq!(from_file.is_file(), false);
-        assert_eq!(to_file.is_file(), true);
+        assert!(!from_file.is_file());
+        assert!(to_file.is_file());
     }
 }
