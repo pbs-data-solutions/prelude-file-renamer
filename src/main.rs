@@ -117,16 +117,12 @@ mod tests {
         let from_file = &tmp_dir.path().join(&file_name);
         let to_file = &tmp_dir.path().join("test_1.xml");
 
-        fs::copy(
-            &root.join("tests/assets/sites/").join(&file_name),
-            &from_file.to_path_buf(),
-        )
-        .unwrap();
+        fs::copy(root.join("tests/assets/sites/").join(file_name), from_file).unwrap();
 
-        renamer(&from_file, &to_file, &false);
+        renamer(from_file, to_file, &false);
 
-        assert_eq!(from_file.is_file(), false);
-        assert_eq!(to_file.is_file(), true);
+        assert!(!from_file.is_file());
+        assert!(to_file.is_file());
     }
 
     #[test]
@@ -137,16 +133,12 @@ mod tests {
         let from_file = &tmp_dir.path().join(&file_name);
         let to_file = &tmp_dir.path().join("test_1.xml");
 
-        fs::copy(
-            &root.join("tests/assets/sites/").join(&file_name),
-            &from_file.to_path_buf(),
-        )
-        .unwrap();
+        fs::copy(root.join("tests/assets/sites/").join(file_name), from_file).unwrap();
 
-        renamer(&from_file, &to_file, &true);
+        renamer(from_file, to_file, &true);
 
-        assert_eq!(from_file.is_file(), false);
-        assert_eq!(to_file.is_file(), true);
+        assert!(!from_file.is_file());
+        assert!(to_file.is_file());
     }
 
     #[test]
@@ -170,16 +162,12 @@ mod tests {
         let from_file = &site_dir.join(&file_name);
         let to_file = &site_dir.join("sites_test_1.xml");
 
-        fs::create_dir(&site_dir).unwrap();
-        fs::copy(
-            &root.join("tests/assets/sites/").join(&file_name),
-            &from_file.to_path_buf(),
-        )
-        .unwrap();
+        fs::create_dir(site_dir).unwrap();
+        fs::copy(root.join("tests/assets/sites/").join(&file_name), from_file).unwrap();
 
         rename_xml(vec![site_dir.to_path_buf()], None, true, false);
 
-        assert_eq!(from_file.is_file(), false);
-        assert_eq!(to_file.is_file(), true);
+        assert!(!from_file.is_file());
+        assert!(to_file.is_file());
     }
 }
