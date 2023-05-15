@@ -24,7 +24,7 @@ struct Args {
     #[arg(
         short,
         long,
-        help = "Don't append the parent directory to the file name"
+        help = "Don't append the parent directory name to the file name"
     )]
     no_append: bool,
 
