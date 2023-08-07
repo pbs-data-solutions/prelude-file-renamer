@@ -14,4 +14,4 @@ clap = { version = "4.3.19", features = ["suggestions", "derive"] }
 glob = "0.3.1"
 
 [dev-dependencies]
-tempfile = "3.7.0"
+tempfile = "3.7.1"
