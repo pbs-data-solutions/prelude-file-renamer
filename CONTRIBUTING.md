@@ -13,7 +13,8 @@ for something that interests you.
 Please include:
 
 1. A short, self-contained Python snippet reproducing the problem. You can format the code by using
-[GitHub markdown](https://docs.github.com/en/free-pro-team@latest/github/writing-on-github). For example:
+[GitHub markdown](https://docs.github.com/en/free-pro-team@latest/github/writing-on-github). For
+example:
 
     ```sh
     prelude-file-renamer /my/file/path
@@ -112,13 +113,13 @@ git commit -am 'Some short helpful message to describe your changes'
 ## Push your changes
 
 Once your changes are ready and all linting/tests are passing you can push your changes to your
-forked repositry:
+forked repository:
 
 ```sh
 git push origin my-new-feature
 ```
 
-origin is the default name of your remote repositry on GitHub. You can see all of your remote
+origin is the default name of your remote repository on GitHub. You can see all of your remote
 repositories by running:
 
 ```sh
@@ -142,7 +143,8 @@ respectively.
 ### Make the pull request
 
 If everything looks good, you are ready to make a pull request. This is how you let the maintainers
-of the prelude-file-renamer project know you have code ready to be reviewed. To submit the pull request:
+of the prelude-file-renamer project know you have code ready to be reviewed. To submit the pull
+request:
 
 1. Navigate to your repository on GitHub
 1. Click on the Pull Request button for your feature branch
