@@ -107,15 +107,15 @@ fn main() {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use tempfile::tempdir;
+    use tmp_path::tmp_path;
 
     #[test]
+    #[tmp_path]
     fn test_renamer() {
         let root = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-        let tmp_dir = tempdir().unwrap();
         let file_name = String::from("C6A91478B2AF28F550DD3B128D5D2886_test_1.xml");
-        let from_file = &tmp_dir.path().join(&file_name);
-        let to_file = &tmp_dir.path().join("test_1.xml");
+        let from_file = &tmp_path.join(&file_name);
+        let to_file = &tmp_path.join("test_1.xml");
 
         fs::copy(root.join("tests/assets/sites/").join(file_name), from_file).unwrap();
 
@@ -126,12 +126,12 @@ mod tests {
     }
 
     #[test]
+    #[tmp_path]
     fn test_renamer_verbose() {
         let root = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-        let tmp_dir = tempdir().unwrap();
         let file_name = String::from("C6A91478B2AF28F550DD3B128D5D2886_test_1.xml");
-        let from_file = &tmp_dir.path().join(&file_name);
-        let to_file = &tmp_dir.path().join("test_1.xml");
+        let from_file = &tmp_path.join(&file_name);
+        let to_file = &tmp_path.join("test_1.xml");
 
         fs::copy(root.join("tests/assets/sites/").join(file_name), from_file).unwrap();
 
@@ -154,11 +154,11 @@ mod tests {
     }
 
     #[test]
+    #[tmp_path]
     fn test_rename_xml() {
         let root = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-        let tmp_dir = tempdir().unwrap();
         let file_name = String::from("C6A91478B2AF28F550DD3B128D5D2886_test_1.xml");
-        let site_dir = &tmp_dir.path().join("sites");
+        let site_dir = &tmp_path.join("sites");
         let from_file = &site_dir.join(&file_name);
         let to_file = &site_dir.join("sites_test_1.xml");
 
