@@ -50,7 +50,7 @@ fn recursive_gather_dirs(dir_path: &Path) -> Vec<PathBuf> {
     for entry in glob(&root).expect("Root directory not found") {
         match entry {
             Ok(path) => paths.push(path),
-            Err(e) => println!("{:?}", e),
+            Err(e) => println!("{e:?}"),
         }
     }
 
