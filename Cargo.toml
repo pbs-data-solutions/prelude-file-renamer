@@ -15,4 +15,4 @@ glob = "0.3.3"
 
 [dev-dependencies]
 tempfile = "3.27.0"
-tmp-path = "0.1.2"
+tmp-path = "0.2.1"
